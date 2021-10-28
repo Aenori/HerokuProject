@@ -24,9 +24,6 @@ import java.util.stream.Stream;
 
 @Controller
 public class SampleController {
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
-
     @Autowired
     private DataSource dataSource;
 
