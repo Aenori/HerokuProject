@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wcsdata.xmen.entity.CerebookUser;
+import wcsdata.xmen.entity.Post;
 import wcsdata.xmen.repository.CerebookUserDAO;
+import wcsdata.xmen.repository.PostDAO;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -30,6 +32,9 @@ public class SampleController {
     @Autowired
     private CerebookUserDAO cerebookUserDao;
 
+    @Autowired
+    private PostDAO postDao;
+
     @RequestMapping("/")
     String index() {
         return "index";
@@ -42,6 +47,15 @@ public class SampleController {
         cerebookUserDao.findAll().forEach(cerebookUsers::add);
 
         return cerebookUsers;
+    }
+
+    @GetMapping("/cerebookPosts")
+    @ResponseBody
+    List<Post> getAllCerebookPosts() {
+        List<Post> cerebookPost = new ArrayList<>();
+        postDao.findAll().forEach(cerebookPost::add);
+
+        return cerebookPost;
     }
 
     @RequestMapping("/db")
