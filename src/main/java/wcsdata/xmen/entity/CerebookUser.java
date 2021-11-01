@@ -14,10 +14,13 @@ public class CerebookUser {
     private String humanName;
 
     public CerebookUser() {}
-    public CerebookUser(Integer id, String name, String humanName) {
-        this.id = id;
+    public CerebookUser(String name, String humanName) {
         this.name = name;
         this.humanName = humanName;
+    }
+    public CerebookUser(Integer id, String name, String humanName) {
+        this(name, humanName);
+        this.id = id;
     }
 
     public Integer getId() {
