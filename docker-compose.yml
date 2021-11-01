@@ -8,10 +8,10 @@ services:
       - db
     environment:
       PORT: 8080
-      FULL_DATABASE_URL: postgresql://postgres:postgres_password@db:5432/postgres
+      FULL_DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
       DATABASE_URL: postgresql://db:5432/postgres
       DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: postgres_password
+      DATABASE_PASSWORD: postgres
     command: bash scripts/run_on_docker.sh
 
 
@@ -20,10 +20,12 @@ services:
     ports:
       - "5433:5432"
     environment:
-      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_volume:/var/lib/postgresql/data
 
 volumes:
   postgres_volume: 
     driver: local
+
+
