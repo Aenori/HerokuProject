@@ -10,6 +10,6 @@ RUN mvn dependency:resolve
 
 ADD . /app
 
-RUN mvn install
+# RUN mvn install -Dmaven.test.skip=true
 
 CMD mvn spring-boot:run

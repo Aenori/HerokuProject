@@ -11,11 +11,13 @@ public class CerebookUser {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private String name;
+    private String humanName;
 
     public CerebookUser() {}
-    public CerebookUser(Integer id, String name) {
+    public CerebookUser(Integer id, String name, String humanName) {
         this.id = id;
         this.name = name;
+        this.humanName = humanName;
     }
 
     public Integer getId() {
@@ -32,5 +34,13 @@ public class CerebookUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getHumanName() {
+        return humanName;
+    }
+
+    public void setHumanName(String humanName) {
+        this.humanName = humanName;
     }
 }
