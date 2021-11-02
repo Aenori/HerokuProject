@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-import wcsdata.xmen.entity.CerebookUser;
+import wcsdata.xmen.entity.AppUser;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,8 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @Transactional
 class CerebookUserDAOTest {
-    @Autowired
-    private CerebookUserDAO cerebookUserDao;
+    /*@Autowired
+    private AppUserRepository cerebookUserDao;
 
     @Test
     public void findByName() {
@@ -29,11 +29,24 @@ class CerebookUserDAOTest {
         assertEquals(1, cerebookUserDao.count());
         assertThat(cerebookUserDao.findByName("Cyclope")).isNull();
 
-        cerebookUserDao.save(new CerebookUser(
+        cerebookUserDao.save(new AppUser(
                 "Cyclope", "Scott Summers"));
 
         assertThat(cerebookUserDao.findByName("Cyclope")).isNotNull();
         assertEquals("Scott Summers",
                 cerebookUserDao.findByName("Cyclope").getHumanName());
     }
+
+    @Test
+    public void save2() {
+        assertEquals(1, cerebookUserDao.count());
+        assertThat(cerebookUserDao.findByName("Cyclope")).isNull();
+
+        cerebookUserDao.save(new AppUser(
+                "Cyclope", "Scott Summers"));
+
+        assertThat(cerebookUserDao.findByName("Cyclope")).isNotNull();
+        assertEquals("Scott Summers",
+                cerebookUserDao.findByName("Cyclope").getHumanName());
+    }*/
 }

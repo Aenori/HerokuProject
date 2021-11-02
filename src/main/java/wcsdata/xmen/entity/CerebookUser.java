@@ -1,49 +1,50 @@
 package wcsdata.xmen.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import wcsdata.xmen.entity.AppUser;
 
-@Entity
-public class CerebookUser {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-    private String name;
-    private String humanName;
+import java.util.Collection;
 
-    public CerebookUser() {}
-    public CerebookUser(String name, String humanName) {
-        this.name = name;
-        this.humanName = humanName;
-    }
-    public CerebookUser(Integer id, String name, String humanName) {
-        this(name, humanName);
-        this.id = id;
+public class CerebookUser implements UserDetails {
+    private final AppUser appUser;
+
+    public CerebookUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
-    public Integer getId() {
-        return id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    @Override
+    public String getPassword() {
+        return appUser.getPassword();
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String getUsername() {
+        return appUser.getUsername();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getHumanName() {
-        return humanName;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setHumanName(String humanName) {
-        this.humanName = humanName;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
