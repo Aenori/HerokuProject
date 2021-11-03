@@ -16,6 +16,7 @@ public class CerebookUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
+        System.out.println("Received username : " + username);
         AppUser appUser = appUserRepository.findByUsername(username);
         if (appUser == null) {
             throw new UsernameNotFoundException(username);
