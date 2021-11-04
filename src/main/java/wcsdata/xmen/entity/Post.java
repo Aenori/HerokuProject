@@ -8,8 +8,10 @@ public class Post {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    @Column(unique = true)
     private String content;
+
+    @ManyToOne
+    private CerebookUser author;
 
     public Integer getId() {
         return id;

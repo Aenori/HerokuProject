@@ -1,50 +1,118 @@
 package wcsdata.xmen.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import wcsdata.xmen.entity.AppUser;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-import java.util.Collection;
+@Entity
+public class CerebookUser {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
 
-public class CerebookUser implements UserDetails {
-    private final AppUser appUser;
+    @Column(nullable = false, unique = true)
+    private String username;
+    private String password;
 
-    public CerebookUser(AppUser appUser) {
-        this.appUser = appUser;
+    private String name;
+    private String humanName;
+
+    @ManyToMany
+    private final Set<CerebookUser> friends = new HashSet<>();
+
+    @OneToMany(mappedBy = "author")
+    private final Set<Post> posts = new HashSet<>();
+
+    // <editor-fold desc="constructors region">
+    public CerebookUser() {}
+
+    public CerebookUser(String username, String password, String name, String humanName) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.humanName = humanName;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public CerebookUser(Integer id, String username, String password, String name, String humanName) {
+        this(username, password, name, humanName);
+        this.id = id;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="getter-setter region">
+    public Integer getId() {
+        return id;
     }
 
-    @Override
-    public String getPassword() {
-        return appUser.getPassword();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    @Override
     public String getUsername() {
-        return appUser.getUsername();
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getHumanName() {
+        return humanName;
+    }
+
+    public void setHumanName(String humanName) {
+        this.humanName = humanName;
+    }
+
+    public Set<CerebookUser> getFriends() {
+        return friends;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+    // </editor-fold>
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CerebookUser that = (CerebookUser) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public String toString() {
+        return "CerebookUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", humanName='" + humanName + '\'' +
+                ", friends=" + friends +
+                ", posts=" + posts +
+                '}';
     }
 }

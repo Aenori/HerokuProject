@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import wcsdata.xmen.entity.AppUser;
+import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.entity.Post;
-import wcsdata.xmen.repository.AppUserRepository;
+import wcsdata.xmen.repository.CerebookUserRepository;
 import wcsdata.xmen.repository.PostDAO;
 
 import javax.sql.DataSource;
@@ -24,7 +24,7 @@ public class SampleController {
     private DataSource dataSource;
 
     @Autowired
-    private AppUserRepository cerebookUserDao;
+    private CerebookUserRepository cerebookUserDao;
 
     @Autowired
     private PostDAO postDao;
@@ -36,8 +36,8 @@ public class SampleController {
 
     @GetMapping("/cerebookUsers")
     @ResponseBody
-    List<AppUser> getAllCerebookUser() {
-        List<AppUser> cerebookUsers = new ArrayList<>();
+    List<CerebookUser> getAllCerebookUser() {
+        List<CerebookUser> cerebookUsers = new ArrayList<>();
         cerebookUserDao.findAll().forEach(cerebookUsers::add);
 
         return cerebookUsers;
