@@ -72,6 +72,12 @@
       <artifactId>twitter4j-core</artifactId>
       <version>4.0.7</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/nl.geodienstencentrum.maven/sass-maven-plugin -->
+    <dependency>
+      <groupId>nl.geodienstencentrum.maven</groupId>
+      <artifactId>sass-maven-plugin</artifactId>
+      <version>3.7.2</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -93,6 +99,11 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>nl.geodienstencentrum.maven</groupId>
+        <artifactId>sass-maven-plugin</artifactId>
+        <version>3.7.3-SNAPSHOT</version>
       </plugin>
     </plugins>
   </build>

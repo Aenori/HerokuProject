@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import wcsdata.xmen.result_matchers.StringCountOccurrences;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,8 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest()
 @ActiveProfiles("test")
 @Transactional
-@AutoConfigureMockMvc
-class SampleControllerTest {
+@AutoConfigureMockMvc(addFilters = false)
+class SampleControllerRoutesTest {
     @Autowired
     private MockMvc mvc;
 
@@ -36,10 +37,17 @@ class SampleControllerTest {
     }
 
     @Test
-    void getAllCerebookPosts() {
-    }
+    void db() throws Exception {
+        mvc.perform(get("/db").contentType(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(new StringCountOccurrences("Read from DB", 1));
 
-    @Test
-    void db() {
+        mvc.perform(get("/db").contentType(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(new StringCountOccurrences("Read from DB", 2));
     }
 }
