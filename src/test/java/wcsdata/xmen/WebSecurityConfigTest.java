@@ -10,6 +10,7 @@ class WebSecurityConfigTest {
 
     @Test
     void passwordEncoder() {
+        //System.out.println(webSecurityConfig.passwordEncoder().encode("password"));
         assert(webSecurityConfig.passwordEncoder().matches(
                 "password",
             webSecurityConfig.passwordEncoder().encode(

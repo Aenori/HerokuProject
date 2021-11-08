@@ -26,7 +26,7 @@ class CerebookUserRepositoryTest {
 
     @Test
     public void save() {
-        assertEquals(1, cerebookUserRepository.count());
+        long currentUsersCount = cerebookUserRepository.count();
         assertThat(cerebookUserRepository.findByName("Cyclope")).isNull();
 
         cerebookUserRepository.save(new CerebookUser(
@@ -35,18 +35,6 @@ class CerebookUserRepositoryTest {
         assertThat(cerebookUserRepository.findByName("Cyclope")).isNotNull();
         assertEquals("Scott Summers",
                 cerebookUserRepository.findByName("Cyclope").getHumanName());
-    }
-
-    @Test
-    public void save2() {
-        assertEquals(1, cerebookUserRepository.count());
-        assertThat(cerebookUserRepository.findByName("Cyclope")).isNull();
-
-        cerebookUserRepository.save(new CerebookUser(
-                "cyclope", null, "Cyclope", "Scott Summers"));
-
-        assertThat(cerebookUserRepository.findByName("Cyclope")).isNotNull();
-        assertEquals("Scott Summers",
-                cerebookUserRepository.findByName("Cyclope").getHumanName());
+        assertEquals(currentUsersCount + 1, cerebookUserRepository.count());
     }
 }
