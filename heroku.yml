@@ -1,10 +1,5 @@
 build:
   docker:
-    web: Dockerfile
-release:
-  command:
-    - mvn install -DskipTests 
-  image:
-    web
+    web: Dockerfile_heroku
 run:
   web: java -jar target/heroku-xmen-1.0.jar
