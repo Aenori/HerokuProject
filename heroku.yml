@@ -3,6 +3,6 @@ build:
     web: Dockerfile
 release:
   command:
-    - mvn install
+    - mvn install -DskipTests 
 run:
   web: java -jar target/heroku-xmen-1.0.jar
