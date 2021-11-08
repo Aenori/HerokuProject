@@ -31,7 +31,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // http.authorizeRequests().antMatchers("/**").permitAll();
-        http.authorizeRequests().antMatchers("/", "/home", "/error").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/", "/home", "/error")
+                .permitAll()
+                .antMatchers("/admin**")
+                .hasAuthority("ROLE_admin")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -39,23 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+        // http.authorizeRequests().antMatchers("*").permitAll().and().formLogin();
     }
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication()
-                    .withUser("user").password(passwordEncoder().encode("pass")).roles("USER")
-                    .and()
-                    .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
-                    .and()
-                    .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 }
