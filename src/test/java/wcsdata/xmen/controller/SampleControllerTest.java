@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class SampleControllerTest {
     @InjectMocks
-    SampleController sampleController = new SampleController();
+    SampleController sampleController;
 
     @Mock
     private CerebookUserRepository mockCerebookUserRepository;
@@ -27,5 +27,7 @@ class SampleControllerTest {
     void getAllCerebookUsers() {
         when(mockCerebookUserRepository.findAll()).thenReturn(new ArrayList<>());
         assert(sampleController.getAllCerebookUser().isEmpty());
+        verify(mockCerebookUserRepository, times(1)).findAll();
+        verify(mockCerebookUserRepository, never()).findById(any());
     }
 }
