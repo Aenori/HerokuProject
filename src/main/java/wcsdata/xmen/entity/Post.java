@@ -28,4 +28,12 @@ public class Post {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public CerebookUser getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(CerebookUser author) {
+        this.author = author;
+    }
 }

@@ -1,11 +1,14 @@
 package wcsdata.xmen.entity;
 
+import wcsdata.xmen.entity.ids.CerebookUserFriendsId;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "cerebook_user_friends")
+@IdClass(CerebookUserFriendsId.class)
 public class CerebookUserFriends implements Serializable {
     @Id
     @ManyToOne

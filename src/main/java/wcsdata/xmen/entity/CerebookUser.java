@@ -22,7 +22,7 @@ public class CerebookUser {
     @JoinTable(name="cerebook_user_friends")
     private final Set<CerebookUser> friends = new HashSet<>();
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private final Set<Post> posts = new HashSet<>();
 
     // <editor-fold desc="constructors region">
@@ -115,5 +115,13 @@ public class CerebookUser {
                 ", friends=" + friends +
                 ", posts=" + posts +
                 '}';
+    }
+
+    public Post createPost() {
+        Post post = new Post();
+        post.setAuthor(this);
+        posts.add(post);
+
+        return post;
     }
 }
