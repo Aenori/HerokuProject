@@ -20,4 +20,7 @@ ADD pom.xml /app
 ADD . /app
 COPY --from=0 /app/src/main/resources/public/css /app/src/main/resources/public/css
 
+RUN scripts/docker/mvn_if_production.sh
+
 CMD mvn spring-boot:run
+

@@ -1,9 +1,6 @@
 package wcsdata.xmen.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.entity.Post;
 import wcsdata.xmen.repository.CerebookUserRepository;
-import wcsdata.xmen.repository.PostDAO;
+import wcsdata.xmen.repository.PostRepository;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -32,7 +29,7 @@ public class SampleController {
     private CerebookUserRepository cerebookUserDao;
 
     @Autowired
-    private PostDAO postDao;
+    private PostRepository postDao;
 
     @RequestMapping("/")
     String index() {

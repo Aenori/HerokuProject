@@ -19,6 +19,7 @@ public class CerebookUser {
     private String humanName;
 
     @ManyToMany
+    @JoinTable(name="cerebook_user_friends")
     private final Set<CerebookUser> friends = new HashSet<>();
 
     @OneToMany(mappedBy = "author")

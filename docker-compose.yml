@@ -8,13 +8,14 @@ services:
       - db
     environment:
       PORT: 8080
-      FULL_DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
-      DATABASE_URL: postgresql://db:5432/postgres
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
+      JDBC_DATABASE_URL: postgresql://db:5432/postgres
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
     command: bash scripts/run_on_docker.sh
     volumes:
       - .:/app
+      - maven_repository:/root/.m2
 
   db:
     image: "postgres:13-alpine"
@@ -26,7 +27,8 @@ services:
       - postgres_volume:/var/lib/postgresql/data
 
 volumes:
-  postgres_volume: 
+  postgres_volume:
     driver: local
-
+  maven_repository:
+    driver: local
 
