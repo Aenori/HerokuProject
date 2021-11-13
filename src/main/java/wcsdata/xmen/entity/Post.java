@@ -10,7 +10,7 @@ public class Post {
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private CerebookUser author;
 
     public Integer getId() {

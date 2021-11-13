@@ -60,6 +60,11 @@ class CerebookUserRepositoryTest {
         cerebookUserRepository.save(superman);
 
         assertThat(postRepository.count()).isEqualTo(postCount + 1);
+
+        postRepository.delete(post);
+
+        superman = cerebookUserRepository.findByUsername("superman");
+        assertThat(superman).isNotNull();
     }
 
     @Test

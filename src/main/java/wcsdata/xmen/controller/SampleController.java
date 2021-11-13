@@ -1,6 +1,8 @@
 package wcsdata.xmen.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,10 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.entity.Post;
+import wcsdata.xmen.model.UserDetailsWrapper;
 import wcsdata.xmen.repository.CerebookUserRepository;
 import wcsdata.xmen.repository.PostRepository;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import javax.sql.DataSource;
+import java.security.Principal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -78,11 +84,12 @@ public class SampleController {
     @ResponseBody
     @RequestMapping("/admin")
     Map<String, String> admin(
-            SecurityContextHolderAwareRequestWrapper securityContextHolderAwareRequestWrapper
+            SecurityContextHolderAwareRequestWrapper securityContextHolderAwareRequestWrapper,
+            Principal principal
     ) {
-        /*if(!securityContextHolderAwareRequestWrapper.isUserInRole("ROLE_admin")) {
+        if(!securityContextHolderAwareRequestWrapper.isUserInRole("ROLE_admin")) {
             throw new AccessDeniedException("403 forbidden");
-        }*/
+        }
         Map<String, String> result = new HashMap<>();
         result.put("message", "Welcome admin");
 

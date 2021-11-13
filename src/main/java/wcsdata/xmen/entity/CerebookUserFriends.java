@@ -22,7 +22,6 @@ public class CerebookUserFriends implements Serializable {
 
     private LocalDateTime createdAt;
 
-
     public CerebookUser getOriginatedUser() {
         return originatedUser;
     }
