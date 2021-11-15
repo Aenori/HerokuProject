@@ -1,0 +1,15 @@
+<html>
+<head></head>
+<body>
+<h1>Login</h1>
+    <table>
+        <th:block th:each="cerebook_user : ${cerebook_users}">
+            <tr>
+                <td th:text="${cerebook_user.username}"></td>
+                <td th:text="${cerebook_user.humanName}"></td>
+                <td th:text="${cerebook_user.name}"></td>
+            </tr>
+        </th:block>
+    </table>
+</body>
+</html>

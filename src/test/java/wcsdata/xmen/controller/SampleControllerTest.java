@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class SampleControllerTest {
     @InjectMocks
-    SampleController sampleController;
+    private SampleController sampleController;
 
     @Mock
     private CerebookUserRepository mockCerebookUserRepository;
