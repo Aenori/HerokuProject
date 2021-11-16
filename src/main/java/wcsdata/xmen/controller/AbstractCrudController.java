@@ -1,5 +1,7 @@
 package wcsdata.xmen.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.MediaType;
@@ -40,10 +42,11 @@ public abstract class AbstractCrudController<E, EK> {
     }
 
     public ServerResponse updateGet(ServerRequest sr) {
-        System.out.println("Hello => " + sr.pathVariable("id"));
-
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("element", getRepository().getById(parseId(sr.pathVariable("id"))));
+        E e = getElement(sr.pathVariable("id"));
+        postProcessUpdateResult(e);
+        
+        model.put("element", e);
         model.put("controllerRoute", getControllerRoute());
 
         return ServerResponse.ok()
@@ -53,21 +56,36 @@ public abstract class AbstractCrudController<E, EK> {
     }
 
     public ServerResponse update(ServerRequest sr) throws ServletException, IOException {
-        
-        getRepository().save(sr.body(getElementClass()));
+        Map<String, String> map = sr.params().toSingleValueMap();
+        map.remove("_csrf");
 
-        return ServerResponse.permanentRedirect(URI.create(getControllerRoute() + "/getAll"))
+        ObjectMapper mapper = new ObjectMapper();
+        E e = mapper.convertValue(map, getElementClass());
+        postProcessUpdateResult(e);
+
+        getRepository().save(e);
+
+        return ServerResponse.permanentRedirect(URI.create(getControllerRoute()))
                 .build();
     }
 
+    protected void postProcessUpdateResult(E e) {}
 
+    protected void postProcessElementForUpdateGet(E e) {}
+
+    protected E getElement(String id) {
+        return getRepository().getById(parseId(id));
+    }
 
     protected RouterFunction<ServerResponse> getRoutes() {
         RouterFunction<ServerResponse> newRoute = route()
-                .GET(getControllerRoute() + "/api/getAll", accept(MediaType.ALL), this::getAllJson)
-                .GET(getControllerRoute() + "/getAll", accept(MediaType.ALL), this::getAll)
+                .GET(getControllerRoute(), accept(MediaType.ALL), this::getAll)
                 .GET(getControllerRoute() + "/{id}/update", accept(MediaType.ALL), this::updateGet)
-                .POST(getControllerRoute() + "/update", accept(MediaType.ALL), this::update)
+                .GET("api/" + getControllerRoute(), accept(MediaType.ALL), this::getAllJson)
+                //.POST(getControllerRoute(), accept(MediaType.ALL), this::create)
+                .PUT(getControllerRoute() + "/{id}", accept(MediaType.ALL), this::update)
+                .PATCH(getControllerRoute() + "/{id}", accept(MediaType.ALL), this::update)
+                //.DELETE(getControllerRoute() + "/{id}", accept(MediaType.ALL), this::delete)
                 .build();
 
         return newRoute;
