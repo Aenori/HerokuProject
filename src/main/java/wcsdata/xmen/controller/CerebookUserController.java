@@ -1,75 +1,47 @@
 package wcsdata.xmen.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.function.HandlerFunction;
+import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.ServerResponse;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.repository.CerebookUserRepository;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import static org.springframework.web.servlet.function.RequestPredicates.accept;
+import static org.springframework.web.servlet.function.RouterFunctions.route;
 
 @Controller
-@RequestMapping("/cerebookUser")
-public class CerebookUserController {
+public class CerebookUserController extends AbstractCrudController<CerebookUser, Integer> {
     @Autowired
-    private CerebookUserRepository cerebookUserDao;
+    private CerebookUserRepository cerebookUserRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @PostMapping("/create")
-    public String create(@ModelAttribute CerebookUser cerebookUser) {
-        if(cerebookUser.getId() != null) {
-            throw new AccessDeniedException("403 forbidden");
-        }
-
-        cerebookUser.setPassword(passwordEncoder.encode(
-                cerebookUser.getPassword()
-        ));
-        cerebookUserDao.save(cerebookUser);
-
-        return "redirect:/cerebookUser/getAll";
+    @Override
+    protected JpaRepository<CerebookUser, Integer> getRepository() {
+        return cerebookUserRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path="/getAll")
-    public String request(Model model) {
-        model.addAttribute("cerebookUsers", cerebookUserDao.findAll());
-
-        CerebookUser cerebookUser = new CerebookUser();
-        cerebookUser.setName("xmen name");
-
-        model.addAttribute("newCerebookUser", cerebookUser);
-        return "cerebook_users";
+    @Override
+    protected String getControllerRoute() {
+        return "cerebookUser";
     }
 
-    @RequestMapping(method = RequestMethod.GET, path="/api/getAll")
-    @ResponseBody
-    public List<CerebookUser> request() {
-        return cerebookUserDao.findAll();
+    @Override
+    protected Integer parseId(String id) {
+        return Integer.parseInt(id);
     }
 
-    public String update() {
-        return null;
+    protected Class<CerebookUser> getElementClass() {
+        return CerebookUser.class;
     }
 
-    public String delete() {
-        return null;
-    }
-
-    @PostMapping("/uploadProfile")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
-        Files.copy(file.getInputStream(), Paths.get("data/" + file.getOriginalFilename()));
-
-        return "redirect:/cerebookUser/getAll";
+    @Bean
+    @Override
+    public RouterFunction<ServerResponse> getRoutes() {
+        return super.getRoutes();
     }
 }

@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 import java.security.Principal;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class SampleController {
     }
 
     @RequestMapping("/db")
-    String db(Map<String, Object> model) {
+    String db(Map<String, Object> model) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
@@ -76,8 +77,7 @@ public class SampleController {
             model.put("records", output);
             return "db";
         } catch (Exception e) {
-            model.put("message", e.getMessage());
-            return "error";
+            throw e;
         }
     }
 
