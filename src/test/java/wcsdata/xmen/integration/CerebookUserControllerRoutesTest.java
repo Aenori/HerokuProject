@@ -28,7 +28,7 @@ class CerebookUserControllerRoutesTest {
 
     @Test
     void getAllCerebookUser() throws Exception {
-        mvc.perform(get("/cerebookUser/getAll")
+        mvc.perform(get("/users")
                         .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(content()
