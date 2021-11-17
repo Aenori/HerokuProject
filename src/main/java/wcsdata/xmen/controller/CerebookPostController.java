@@ -39,7 +39,7 @@ public class CerebookPostController
 
     @Override
     protected String[] getElementFields() {
-        return new String[]{"content", "authorId"};
+        return new String[]{"content", "author"};
     }
 
     @Override

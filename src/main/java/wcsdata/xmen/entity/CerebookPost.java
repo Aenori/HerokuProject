@@ -42,7 +42,7 @@ public class CerebookPost {
         return "CerebookPost{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
-                ", author=" + author +
+                ", author=" + (author == null ? "null" : author.getUsername()) +
                 '}';
     }
 }

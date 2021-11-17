@@ -112,8 +112,6 @@ public class CerebookUser {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", humanName='" + humanName + '\'' +
-                ", friends=" + friends +
-                ", posts=" + posts +
                 '}';
     }
 

@@ -3,11 +3,8 @@ package wcsdata.xmen.controller;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.ServerRequest;
 
 import javax.servlet.http.HttpServletRequest;
-
-import static org.springframework.web.servlet.function.RouterFunctions.route;
 
 public abstract class AbstractCrudController<E, EK> {
     // <editor-fold desc="Abstract methods">
