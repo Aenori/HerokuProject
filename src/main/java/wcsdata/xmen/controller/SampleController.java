@@ -1,19 +1,22 @@
 package wcsdata.xmen.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wcsdata.xmen.entity.CerebookUser;
-import wcsdata.xmen.entity.Post;
+import wcsdata.xmen.entity.CerebookPost;
 import wcsdata.xmen.repository.CerebookUserRepository;
-import wcsdata.xmen.repository.PostRepository;
+import wcsdata.xmen.repository.CerebookPostRepository;
 
 import javax.sql.DataSource;
+import java.security.Principal;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +32,7 @@ public class SampleController {
     private CerebookUserRepository cerebookUserDao;
 
     @Autowired
-    private PostRepository postDao;
+    private CerebookPostRepository postDao;
 
     @RequestMapping("/")
     String index() {
@@ -47,15 +50,15 @@ public class SampleController {
 
     @GetMapping("/cerebookPosts")
     @ResponseBody
-    List<Post> getAllCerebookPosts() {
-        List<Post> cerebookPost = new ArrayList<>();
+    List<CerebookPost> getAllCerebookPosts() {
+        List<CerebookPost> cerebookPost = new ArrayList<>();
         postDao.findAll().forEach(cerebookPost::add);
 
         return cerebookPost;
     }
 
     @RequestMapping("/db")
-    String db(Map<String, Object> model) {
+    String db(Map<String, Object> model) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
@@ -70,19 +73,19 @@ public class SampleController {
             model.put("records", output);
             return "db";
         } catch (Exception e) {
-            model.put("message", e.getMessage());
-            return "error";
+            throw e;
         }
     }
 
     @ResponseBody
     @RequestMapping("/admin")
     Map<String, String> admin(
-            SecurityContextHolderAwareRequestWrapper securityContextHolderAwareRequestWrapper
+            SecurityContextHolderAwareRequestWrapper securityContextHolderAwareRequestWrapper,
+            Principal principal
     ) {
-        /*if(!securityContextHolderAwareRequestWrapper.isUserInRole("ROLE_admin")) {
+        if(!securityContextHolderAwareRequestWrapper.isUserInRole("ROLE_admin")) {
             throw new AccessDeniedException("403 forbidden");
-        }*/
+        }
         Map<String, String> result = new HashMap<>();
         result.put("message", "Welcome admin");
 

@@ -3,14 +3,14 @@ package wcsdata.xmen.entity;
 import javax.persistence.*;
 
 @Entity
-public class Post {
+public class CerebookPost {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private CerebookUser author;
 
     public Integer getId() {
@@ -35,5 +35,14 @@ public class Post {
 
     public void setAuthor(CerebookUser author) {
         this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return "CerebookPost{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", author=" + author +
+                '}';
     }
 }
