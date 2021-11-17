@@ -72,11 +72,17 @@
       <artifactId>twitter4j-core</artifactId>
       <version>4.0.7</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/nl.geodienstencentrum.maven/sass-maven-plugin -->
+    <!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
     <dependency>
-      <groupId>nl.geodienstencentrum.maven</groupId>
-      <artifactId>sass-maven-plugin</artifactId>
-      <version>3.7.2</version>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>3.6.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>5.1.3</version>
     </dependency>
   </dependencies>
   <build>

@@ -1,0 +1,18 @@
+<html>
+<head></head>
+<body>
+<h1>Update xmen post</h1>
+    <h2>Create</h2>
+
+    <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST">
+
+        <label th:for="content">Content</label>
+        <input th:field="*{content}">
+        <label th:for="authorId">Author Id</label>
+        <input th:field="*{author}">
+
+        <input hidden th:field="*{id}">
+        <input type="submit">
+    </form>
+</body>
+</html>

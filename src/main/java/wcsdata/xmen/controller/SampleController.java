@@ -2,19 +2,15 @@ package wcsdata.xmen.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wcsdata.xmen.entity.CerebookUser;
-import wcsdata.xmen.entity.Post;
-import wcsdata.xmen.model.UserDetailsWrapper;
+import wcsdata.xmen.entity.CerebookPost;
 import wcsdata.xmen.repository.CerebookUserRepository;
-import wcsdata.xmen.repository.PostRepository;
-
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import wcsdata.xmen.repository.CerebookPostRepository;
 
 import javax.sql.DataSource;
 import java.security.Principal;
@@ -36,7 +32,7 @@ public class SampleController {
     private CerebookUserRepository cerebookUserDao;
 
     @Autowired
-    private PostRepository postDao;
+    private CerebookPostRepository postDao;
 
     @RequestMapping("/")
     String index() {
@@ -54,8 +50,8 @@ public class SampleController {
 
     @GetMapping("/cerebookPosts")
     @ResponseBody
-    List<Post> getAllCerebookPosts() {
-        List<Post> cerebookPost = new ArrayList<>();
+    List<CerebookPost> getAllCerebookPosts() {
+        List<CerebookPost> cerebookPost = new ArrayList<>();
         postDao.findAll().forEach(cerebookPost::add);
 
         return cerebookPost;

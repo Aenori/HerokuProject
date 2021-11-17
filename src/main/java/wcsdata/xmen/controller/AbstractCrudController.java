@@ -1,93 +1,72 @@
 package wcsdata.xmen.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.http.MediaType;
-import org.springframework.web.servlet.function.*;
-import reactor.core.publisher.Mono;
-import wcsdata.xmen.entity.CerebookUser;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.ServerRequest;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
-import static org.springframework.web.servlet.function.RequestPredicates.accept;
 import static org.springframework.web.servlet.function.RouterFunctions.route;
 
 public abstract class AbstractCrudController<E, EK> {
+    // <editor-fold desc="Abstract methods">
     protected abstract JpaRepository<E, EK> getRepository();
     protected abstract String getControllerRoute();
     protected abstract EK parseId(String id);
     protected abstract Class<E> getElementClass();
+    protected abstract String[] getElementFields();
+    // </editor-fold>
 
-    public ServerResponse getAllJson(ServerRequest sr) {
-        return ServerResponse.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(getRepository().findAll());
+    // <editor-fold desc="Route methods">
+    @GetMapping("")
+    public String getAll(Model model) {
+        model.addAttribute("allElements", getRepository().findAll());
+        model.addAttribute("elementFields", getElementFields());
+        return getControllerRoute() + "/getAll";
     }
 
-    public ServerResponse getAll(ServerRequest sr) {
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("allElements", getRepository().findAll());
-        return ServerResponse.ok()
-                .contentType(MediaType.TEXT_HTML)
-                .render(getControllerRoute() + "/getAll",
-                        model);
-    }
-
-    public ServerResponse updateGet(ServerRequest sr) {
-        Map<String, Object> model = new HashMap<String, Object>();
-        E e = getElement(sr.pathVariable("id"));
-        postProcessUpdateResult(e);
-        
-        model.put("element", e);
-        model.put("controllerRoute", getControllerRoute());
-
-        return ServerResponse.ok()
-                .contentType(MediaType.TEXT_HTML)
-                .render(getControllerRoute() + "/update",
-                        model);
-    }
-
-    public ServerResponse update(ServerRequest sr) throws ServletException, IOException {
-        Map<String, String> map = sr.params().toSingleValueMap();
-        map.remove("_csrf");
-
-        ObjectMapper mapper = new ObjectMapper();
-        E e = mapper.convertValue(map, getElementClass());
-        postProcessUpdateResult(e);
-
+    @PostMapping("")
+    public String create(HttpServletRequest hsr, @ModelAttribute E e) {
+        preProcessElement(e, hsr);
         getRepository().save(e);
 
-        return ServerResponse.permanentRedirect(URI.create(getControllerRoute()))
-                .build();
+        return "redirect:/" + getControllerRoute();
     }
 
-    protected void postProcessUpdateResult(E e) {}
+    @GetMapping("/{id}/update")
+    public String updateGet(@PathVariable("id") String id, Model model) {
+        E e = getElement(id);
+        postProcessElementForUpdateGet(e);
+        
+        model.addAttribute("element", e);
+        model.addAttribute("elementFields", getElementFields());
+        model.addAttribute("controllerRoute", getControllerRoute());
 
+        return getControllerRoute() + "/update";
+    }
+
+    @PostMapping("/{id}/update")
+    public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute E e) {
+        preProcessElement(e, hsr);
+        getRepository().save(e);
+
+        return "redirect:/" + getControllerRoute();
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable("id") String id) {
+        getRepository().deleteById(parseId(id));
+
+        return "redirect:/" + getControllerRoute();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Sub methods">
+    protected void preProcessElement(E e, HttpServletRequest hsr) {}
     protected void postProcessElementForUpdateGet(E e) {}
-
     protected E getElement(String id) {
         return getRepository().getById(parseId(id));
     }
-
-    protected RouterFunction<ServerResponse> getRoutes() {
-        RouterFunction<ServerResponse> newRoute = route()
-                .GET(getControllerRoute(), accept(MediaType.ALL), this::getAll)
-                .GET(getControllerRoute() + "/{id}/update", accept(MediaType.ALL), this::updateGet)
-                .GET("api/" + getControllerRoute(), accept(MediaType.ALL), this::getAllJson)
-                //.POST(getControllerRoute(), accept(MediaType.ALL), this::create)
-                .PUT(getControllerRoute() + "/{id}", accept(MediaType.ALL), this::update)
-                .PATCH(getControllerRoute() + "/{id}", accept(MediaType.ALL), this::update)
-                //.DELETE(getControllerRoute() + "/{id}", accept(MediaType.ALL), this::delete)
-                .build();
-
-        return newRoute;
-    }
+    // </editor-fold>
 }

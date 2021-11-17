@@ -5,13 +5,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.repository.CerebookUserRepository;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
-public class CerebookUserController extends AbstractCrudIntegerController<CerebookUser> {
+@RequestMapping("/users")
+public class CerebookUserController
+        extends AbstractCrudIntegerController<CerebookUser> {
     @Autowired
     private CerebookUserRepository cerebookUserRepository;
 
@@ -26,19 +31,21 @@ public class CerebookUserController extends AbstractCrudIntegerController<Cerebo
     @Override
     protected String getControllerRoute() { return "users"; }
 
+    @Override
     protected Class<CerebookUser> getElementClass() {
         return CerebookUser.class;
     }
 
-    @Bean
     @Override
-    public RouterFunction<ServerResponse> getRoutes() {
-        return super.getRoutes();
+    protected String[] getElementFields() {
+        return new String[]{"username", "password",
+            "humanName", "name"
+        };
     }
 
     @Override
-    protected void postProcessUpdateResult(CerebookUser cerebookUser) {
-        if(cerebookUser.getPassword() == null) {
+    protected void preProcessElement(CerebookUser cerebookUser, HttpServletRequest _hsr) {
+        if(cerebookUser.getPassword().isEmpty()) {
             cerebookUser.setPassword(
                     cerebookUserRepository.getById(cerebookUser.getId())
                             .getPassword());

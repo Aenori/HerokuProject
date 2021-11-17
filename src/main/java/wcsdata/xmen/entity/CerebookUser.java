@@ -23,7 +23,7 @@ public class CerebookUser {
     private final Set<CerebookUser> friends = new HashSet<>();
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private final Set<Post> posts = new HashSet<>();
+    private final Set<CerebookPost> posts = new HashSet<>();
 
     // <editor-fold desc="constructors region">
     public CerebookUser() {}
@@ -86,7 +86,7 @@ public class CerebookUser {
         return friends;
     }
 
-    public Set<Post> getPosts() {
+    public Set<CerebookPost> getPosts() {
         return posts;
     }
     // </editor-fold>
@@ -117,8 +117,8 @@ public class CerebookUser {
                 '}';
     }
 
-    public Post createPost() {
-        Post post = new Post();
+    public CerebookPost createPost() {
+        CerebookPost post = new CerebookPost();
         post.setAuthor(this);
         posts.add(post);
 
