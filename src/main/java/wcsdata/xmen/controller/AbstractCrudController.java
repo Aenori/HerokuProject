@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 public abstract class AbstractCrudController<E, EK> {
-    @Autowired
-    CerebookUserRepository cerebookUserRepository;
-
     // <editor-fold desc="Abstract methods">
     protected abstract JpaRepository<E, EK> getRepository();
     protected abstract String getControllerRoute();
@@ -29,9 +26,6 @@ public abstract class AbstractCrudController<E, EK> {
     // <editor-fold desc="Route methods">
     @GetMapping("")
     public String getAll(Model model) {
-        System.out.println("*****************");
-        System.out.println(getLoggerUser());
-        System.out.println("*****************");
         model.addAttribute("allElements", getRepository().findAll());
         model.addAttribute("elementFields", getElementFields());
         return getControllerRoute() + "/getAll";
