@@ -52,4 +52,8 @@ public class UserDetailsWrapper implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public CerebookUser getCerebookUser() {
+        return cerebookUser;
+    }
 }
