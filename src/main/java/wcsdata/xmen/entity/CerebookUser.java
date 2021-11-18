@@ -4,9 +4,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
-public class CerebookUser {
+public class CerebookUser implements Comparable<CerebookUser> {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -18,9 +19,9 @@ public class CerebookUser {
     private String name;
     private String humanName;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="cerebook_user_friends")
-    private final Set<CerebookUser> friends = new HashSet<>();
+    private final Set<CerebookUser> friends = new TreeSet<>();
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private final Set<CerebookPost> posts = new HashSet<>();
@@ -90,6 +91,16 @@ public class CerebookUser {
         return posts;
     }
     // </editor-fold>
+
+    public void addFriend(CerebookUser friend) {
+        friends.add(friend);
+        friend.getFriends().add(this);
+    }
+
+    @Override
+    public int compareTo(CerebookUser other) {
+        return id.compareTo(other.id);
+    }
 
     @Override
     public boolean equals(Object o) {

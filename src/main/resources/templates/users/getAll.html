@@ -45,7 +45,18 @@
         </th:block>
         <button type="submit" name="Create" value="Create" class="btn-link">Create</button>
     </form>
-
+</div>
+<!-- Exemple informatif pour la gestion des _csrf token
+     Dans le premier cas le _csrf token est automatiquement ajouté
+     au formulaire, pas dans le deuxième
+-->
+<div hidden>
+    <form th:action="@{'/test'}" method="POST">
+        <button type="submit" name="Create" value="Create" class="btn-link">Test</button>
+    </form>
+    <form action="/test" method="POST">
+        <button type="submit" name="Create" value="Create" class="btn-link">Test</button>
+    </form>
 </div>
 </body>
 </html>

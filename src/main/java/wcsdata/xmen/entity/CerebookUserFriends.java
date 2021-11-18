@@ -20,8 +20,6 @@ public class CerebookUserFriends implements Serializable {
     @JoinColumn(name = "friends_id")
     private CerebookUser friend;
 
-    private LocalDateTime createdAt;
-
     public CerebookUser getOriginatedUser() {
         return originatedUser;
     }
@@ -36,13 +34,5 @@ public class CerebookUserFriends implements Serializable {
 
     public void setFriend(CerebookUser friend) {
         this.friend = friend;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }

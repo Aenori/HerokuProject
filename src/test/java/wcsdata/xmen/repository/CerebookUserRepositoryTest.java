@@ -38,14 +38,14 @@ class CerebookUserRepositoryTest {
     @Test
     public void save() {
         long currentUsersCount = cerebookUserRepository.count();
-        assertThat(cerebookUserRepository.findByName("Cyclope")).isNull();
+        assertThat(cerebookUserRepository.findByName("DeadPool")).isNull();
 
         cerebookUserRepository.save(new CerebookUser(
-                "cyclope", null, "Cyclope", "Scott Summers"));
+                "deadpool", null, "DeadPool", "Scott Summers"));
 
-        assertThat(cerebookUserRepository.findByName("Cyclope")).isNotNull();
+        assertThat(cerebookUserRepository.findByName("DeadPool")).isNotNull();
         assertEquals("Scott Summers",
-                cerebookUserRepository.findByName("Cyclope").getHumanName());
+                cerebookUserRepository.findByName("DeadPool").getHumanName());
         assertEquals(currentUsersCount + 1, cerebookUserRepository.count());
     }
 
@@ -68,7 +68,7 @@ class CerebookUserRepositoryTest {
     }
 
     @Test
-    public void manyToMany() {
+    public void getFriends() {
         CerebookUser superman = cerebookUserRepository.findByUsername("superman");
         assertThat(superman).isNotNull();
 
@@ -85,6 +85,23 @@ class CerebookUserRepositoryTest {
         ));
 
         assertThat(cerebookUserFriends).isPresent();
-        assertThat(cerebookUserFriends.get().getCreatedAt()).isNull();
+    }
+
+    @Test
+    void findFriendsSuggestions() {
+        CerebookUser wolverine = cerebookUserRepository.getById(1);
+        CerebookUser jeanGrey = cerebookUserRepository.getById(2);
+        CerebookUser cyclope = cerebookUserRepository.getById(3);
+
+        wolverine.addFriend(jeanGrey);
+        cyclope.addFriend(jeanGrey);
+
+        cerebookUserRepository.save(wolverine);
+        cerebookUserRepository.save(cyclope);
+
+        assertEquals(
+                1,
+                cerebookUserRepository.findFriendsSuggestions(wolverine).size()
+        );
     }
 }

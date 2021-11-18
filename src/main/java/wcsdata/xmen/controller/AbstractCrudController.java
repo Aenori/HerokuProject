@@ -1,12 +1,17 @@
 package wcsdata.xmen.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import wcsdata.xmen.repository.CerebookUserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 
 public abstract class AbstractCrudController<E, EK> {
+    @Autowired
+    CerebookUserRepository cerebookUserRepository;
+
     // <editor-fold desc="Abstract methods">
     protected abstract JpaRepository<E, EK> getRepository();
     protected abstract String getControllerRoute();
