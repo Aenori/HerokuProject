@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientRequestException;
+
+import java.net.UnknownHostException;
 
 @Service
 public class AdressesApiService {
@@ -21,7 +24,7 @@ public class AdressesApiService {
         return webClient;
     }
 
-    public JsonNode getAdressAsJson(String value) {
+    public JsonNode getAdressAsJson(String value) throws WebClientRequestException {
         try {
             return new ObjectMapper().readTree(getAdressAsString(value));
         } catch (JsonProcessingException e) {

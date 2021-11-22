@@ -26,7 +26,7 @@ class SampleControllerRoutesTest {
     void index() {
     }
 
-    @Test
+    /*@Test
     void getAllCerebookUser() throws Exception {
         mvc.perform(get("/cerebookUsers")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -34,7 +34,7 @@ class SampleControllerRoutesTest {
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].name", is("Wolverine")));
-    }
+    }*/
 
     @Test
     void db() throws Exception {

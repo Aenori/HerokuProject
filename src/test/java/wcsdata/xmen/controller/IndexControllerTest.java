@@ -11,18 +11,10 @@ import java.util.ArrayList;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class SampleControllerTest {
+class IndexControllerTest {
     @InjectMocks
-    private SampleController sampleController;
+    private IndexController indexController;
 
     @Mock
     private CerebookUserRepository mockCerebookUserRepository;
-
-    @Test
-    void getAllCerebookUsers() {
-        when(mockCerebookUserRepository.findAll()).thenReturn(new ArrayList<>());
-        assert(sampleController.getAllCerebookUser().isEmpty());
-        verify(mockCerebookUserRepository, times(1)).findAll();
-        verify(mockCerebookUserRepository, never()).findById(any());
-    }
 }

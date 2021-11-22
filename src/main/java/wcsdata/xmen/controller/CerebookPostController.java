@@ -37,11 +37,6 @@ public class CerebookPostController
     }
 
     @Override
-    protected Class<CerebookPost> getElementClass() {
-        return CerebookPost.class;
-    }
-
-    @Override
     protected String[] getElementFields() {
         return new String[]{"content", "author"};
     }

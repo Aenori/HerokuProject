@@ -19,7 +19,6 @@ public abstract class AbstractCrudController<E, EK> {
     protected abstract JpaRepository<E, EK> getRepository();
     protected abstract String getControllerRoute();
     protected abstract EK parseId(String id);
-    protected abstract Class<E> getElementClass();
     protected abstract String[] getElementFields();
     // </editor-fold>
 
