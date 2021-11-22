@@ -4,7 +4,8 @@
 <h1>Update xmen</h1>
     <h2>Create</h2>
 
-    <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST">
+    <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}"
+          th:object="${element}" method="POST">
 
         <label th:for="username">Username</label>
         <input th:field="*{username}">

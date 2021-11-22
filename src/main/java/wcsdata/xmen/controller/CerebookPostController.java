@@ -9,6 +9,7 @@ import wcsdata.xmen.entity.CerebookPost;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.repository.CerebookPostRepository;
 import wcsdata.xmen.repository.CerebookUserRepository;
+import wcsdata.xmen.services.AdressesApiService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,9 @@ public class CerebookPostController
 
     @Autowired
     private CerebookUserRepository cerebookUserRepository;
+
+    @Autowired
+    private AdressesApiService adressesApiService;
 
     @Override
     protected JpaRepository<CerebookPost, Integer> getRepository() {

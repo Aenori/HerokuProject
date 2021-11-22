@@ -96,6 +96,9 @@ class CerebookUserRepositoryTest {
         wolverine.addFriend(jeanGrey);
         cyclope.addFriend(jeanGrey);
 
+        // wolverine.getFriends().add(jeanGrey);
+        // cyclope.getFriends().add(jeanGrey);
+
         cerebookUserRepository.save(wolverine);
         cerebookUserRepository.save(cyclope);
 

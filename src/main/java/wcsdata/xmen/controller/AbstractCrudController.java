@@ -27,7 +27,8 @@ public abstract class AbstractCrudController<E, EK> {
     @GetMapping("")
     public String getAll(Model model) {
         model.addAttribute("allElements", getRepository().findAll());
-        model.addAttribute("elementFields", getElementFields());
+        addCommonModel(model);
+
         return getControllerRoute() + "/getAll";
     }
 
@@ -39,16 +40,28 @@ public abstract class AbstractCrudController<E, EK> {
         return "redirect:/" + getControllerRoute();
     }
 
+    @GetMapping("/{id}")
+    public String getOne(@PathVariable("id") String id, Model model) {
+        model.addAttribute("element", getElement(id));
+        addCommonModel(model);
+
+        return getControllerRoute() + "/getOne";
+    }
+
     @GetMapping("/{id}/update")
     public String updateGet(@PathVariable("id") String id, Model model) {
         E e = getElement(id);
         postProcessElementForUpdateGet(e);
         
         model.addAttribute("element", e);
-        model.addAttribute("elementFields", getElementFields());
-        model.addAttribute("controllerRoute", getControllerRoute());
+        addCommonModel(model);
 
         return getControllerRoute() + "/update";
+    }
+
+    private void addCommonModel(Model model) {
+        model.addAttribute("elementFields", getElementFields());
+        model.addAttribute("controllerRoute", getControllerRoute());
     }
 
     @PostMapping("/{id}/update")
