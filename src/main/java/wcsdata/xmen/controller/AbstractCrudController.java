@@ -1,18 +1,13 @@
 package wcsdata.xmen.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.servlet.support.RequestContext;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.model.UserDetailsWrapper;
-import wcsdata.xmen.repository.CerebookUserRepository;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 
 public abstract class AbstractCrudController<E, EK> {
     // <editor-fold desc="Abstract methods">

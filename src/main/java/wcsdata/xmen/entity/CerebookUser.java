@@ -1,5 +1,7 @@
 package wcsdata.xmen.entity;
 
+import wcsdata.xmen.model.images.ProfilImage;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,6 +20,8 @@ public class CerebookUser implements Comparable<CerebookUser> {
 
     private String name;
     private String humanName;
+
+    private String imagePath;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="cerebook_user_friends")
@@ -90,11 +94,31 @@ public class CerebookUser implements Comparable<CerebookUser> {
     public Set<CerebookPost> getPosts() {
         return posts;
     }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
     // </editor-fold>
+
+    public ProfilImage getProfilImage() {
+        if(this.imagePath == null) {
+            return null;
+        }
+        return new ProfilImage(imagePath);
+    }
 
     public void addFriend(CerebookUser friend) {
         friends.add(friend);
         friend.getFriends().add(this);
+    }
+
+    public void removeFriend(CerebookUser friend) {
+        friends.remove(friend);
+        friend.getFriends().remove(this);
     }
 
     @Override
