@@ -1,5 +1,7 @@
 package wcsdata.xmen.controller;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +13,11 @@ import org.springframework.web.servlet.function.ServerResponse;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.repository.CerebookUserRepository;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.*;
+import java.nio.file.Files;
 
 @Controller
 @RequestMapping("/users")
@@ -40,6 +46,34 @@ public class CerebookUserController
 
     @Override
     protected void preProcessElement(CerebookUser cerebookUser, HttpServletRequest _hsr) {
+        updatePassword(cerebookUser);
+        try {
+            processProfilePicture(cerebookUser, _hsr.getPart("uploadedProfilePicture"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void processProfilePicture(CerebookUser cerebookUser, Part file) {
+        String originalFilename = file.getSubmittedFileName();
+        String fileName = String.format(
+                "/tmp/profile_%s.%s",
+                cerebookUser.getId(),
+                FilenameUtils.getExtension(originalFilename)
+        );
+
+        try(OutputStream outputStream = new FileOutputStream(fileName)){
+            IOUtils.copy(file.getInputStream(), outputStream);
+        } catch (FileNotFoundException e) {
+            // handle exception here
+        } catch (IOException e) {
+            // handle exception here
+        }
+    }
+
+    private void updatePassword(CerebookUser cerebookUser) {
         if(cerebookUser.getPassword().isEmpty()) {
             cerebookUser.setPassword(
                     cerebookUserRepository.getById(cerebookUser.getId())

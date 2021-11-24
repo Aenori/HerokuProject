@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.model.UserDetailsWrapper;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 public abstract class AbstractCrudController<E, EK> {
     // <editor-fold desc="Abstract methods">
