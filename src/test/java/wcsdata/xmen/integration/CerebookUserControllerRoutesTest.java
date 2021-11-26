@@ -23,10 +23,6 @@ class CerebookUserControllerRoutesTest {
     private MockMvc mvc;
 
     @Test
-    void index() {
-    }
-
-    @Test
     void getAllCerebookUser() throws Exception {
         mvc.perform(get("/users")
                         .contentType(MediaType.TEXT_HTML))

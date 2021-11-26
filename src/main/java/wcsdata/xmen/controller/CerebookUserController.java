@@ -29,9 +29,6 @@ public class CerebookUserController
     }
 
     @Override
-    protected String getControllerRoute() { return "users"; }
-
-    @Override
     protected String[] getElementFields() {
         return new String[]{"username", "password",
             "humanName", "name"

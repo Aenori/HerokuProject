@@ -58,7 +58,7 @@ public class IndexController {
     }
 
 
-    @RequestMapping("/endpoints")
+    @RequestMapping("/api/endpoints")
     @ResponseBody
     public Object showEndpointsAction() throws SQLException
     {

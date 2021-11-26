@@ -32,11 +32,6 @@ public class CerebookPostController
     }
 
     @Override
-    protected String getControllerRoute() {
-        return "posts";
-    }
-
-    @Override
     protected String[] getElementFields() {
         return new String[]{"content", "author"};
     }

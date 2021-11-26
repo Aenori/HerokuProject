@@ -23,20 +23,6 @@ class SampleControllerRoutesTest {
     private MockMvc mvc;
 
     @Test
-    void index() {
-    }
-
-    /*@Test
-    void getAllCerebookUser() throws Exception {
-        mvc.perform(get("/cerebookUsers")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].name", is("Wolverine")));
-    }*/
-
-    @Test
     void db() throws Exception {
         mvc.perform(get("/db").contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())

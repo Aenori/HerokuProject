@@ -12,12 +12,13 @@ import wcsdata.xmen.model.UserDetailsWrapper;
 import wcsdata.xmen.repository.CerebookUserRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.annotation.Annotation;
 import java.security.Principal;
 
 public abstract class AbstractCrudController<E, EK> {
     // <editor-fold desc="Abstract methods">
     protected abstract JpaRepository<E, EK> getRepository();
-    protected abstract String getControllerRoute();
+
     protected abstract EK parseId(String id);
     protected abstract String[] getElementFields();
     // </editor-fold>
@@ -94,4 +95,14 @@ public abstract class AbstractCrudController<E, EK> {
         return null;
     }
     // </editor-fold>
+
+    protected String getControllerRoute() {
+        for(Annotation annotation : this.getClass().getAnnotations()) {
+            if(annotation instanceof RequestMapping) {
+                return ((RequestMapping) annotation).value()[0].substring(1);
+            }
+        }
+
+        return null;
+    }
 }
