@@ -28,14 +28,14 @@ public class JacksonSerialisationTest {
 
     @Test
     public void serialisationObjectToStringTest() throws JsonProcessingException {
-        String myObjectAsJson = objectMapper.writeValueAsString(getSuperman());
+        String myObjectAsJson = null; // Change this line
         assertEquals("{\"id\":1,\"name\":\"Clark Kent\"}", myObjectAsJson);
     }
 
     @Test
     public void serialisationObjectToJsonNodeTest() {
         // It is forbidden to use getSupermanAsJson() here !!
-        JsonNode myJson = objectMapper.valueToTree(getSuperman());
+        JsonNode myJson = null; // Change this line
         assertEquals(getSupermanAsJson(), myJson);
     }
 
@@ -43,7 +43,7 @@ public class JacksonSerialisationTest {
     public void deserialisationStringToObject() throws JsonProcessingException {
         String supermanAsString = "{\"id\":1,\"name\":\"Clark Kent\"}";
         // It is forbidden to use getSuperman() here !!
-        Person superman = objectMapper.readValue(supermanAsString, Person.class);
+        Person superman = null; // Change this line
         assertEquals(getSuperman(), superman);
     }
 
@@ -51,7 +51,7 @@ public class JacksonSerialisationTest {
     public void deserialisationStringToJsonNode() throws JsonProcessingException {
         String supermanAsString = "{\"id\":1,\"name\":\"Clark Kent\"}";
         // It is forbidden to use getSuperman() here !!
-        JsonNode superman = objectMapper.readValue(supermanAsString, JsonNode.class);
+        JsonNode superman = null; // Change this line
         assertEquals(getSupermanAsJson(), superman);
     }
 }
