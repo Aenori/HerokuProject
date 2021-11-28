@@ -34,6 +34,14 @@ public abstract class AbstractCrudHtmlController<E, EK> extends AbstractCrudCont
         return getControllerRoute() + "/getAll";
     }
 
+    @GetMapping("rest")
+    public String getAllWithRest(Model model) {
+        model.addAttribute("allElements", getRepository().findAll());
+        addCommonModel(model);
+
+        return getControllerRoute() + "/getAllWithRest";
+    }
+
     @PostMapping("")
     public String create(HttpServletRequest hsr, @ModelAttribute E e) {
         preProcessElement(e, hsr);

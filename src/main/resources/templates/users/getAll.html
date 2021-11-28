@@ -36,6 +36,7 @@
     </table>
 </div>
 <div class="container">
+<div class="card" style="width: 18rem; padding: 10px">
 <h2>Create</h2>
     <form th:action="@{'/users'}" method="POST">
         <th:block th:each="field : ${elementFields}">
@@ -45,6 +46,7 @@
         </th:block>
         <button type="submit" name="Create" value="Create" class="btn-link">Create</button>
     </form>
+</div>
 </div>
 <!-- Exemple informatif pour la gestion des _csrf token
      Dans le premier cas le _csrf token est automatiquement ajouté
