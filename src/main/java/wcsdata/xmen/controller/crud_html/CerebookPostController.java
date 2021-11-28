@@ -1,8 +1,7 @@
-package wcsdata.xmen.controller;
+package wcsdata.xmen.controller.crud_html;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import wcsdata.xmen.entity.CerebookPost;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/posts")
 public class CerebookPostController
-        extends AbstractCrudIntegerController<CerebookPost> {
+        extends AbstractCrudHtmlIntegerController<CerebookPost> {
     @Autowired
     private CerebookPostRepository cerebookPostRepository;
 
@@ -46,5 +45,10 @@ public class CerebookPostController
                 )
             );
         }
+    }
+
+    @Override
+    protected Class<CerebookPost> getElementClass() {
+        return CerebookPost.class;
     }
 }

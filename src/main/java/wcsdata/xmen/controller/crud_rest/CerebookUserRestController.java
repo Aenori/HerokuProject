@@ -1,22 +1,21 @@
-package wcsdata.xmen.controller;
+package wcsdata.xmen.controller.crud_rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.function.RouterFunction;
-import org.springframework.web.servlet.function.ServerResponse;
+import org.springframework.web.bind.annotation.RestController;
+import wcsdata.xmen.controller.crud_html.AbstractCrudHtmlIntegerController;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.repository.CerebookUserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
-@RequestMapping("/users")
-public class CerebookUserController
-        extends AbstractCrudIntegerController<CerebookUser> {
+@RestController
+@RequestMapping("/api/users")
+public class CerebookUserRestController
+        extends AbstractCrudRestIntegerController<CerebookUser> {
     @Autowired
     private CerebookUserRepository cerebookUserRepository;
 
@@ -51,5 +50,10 @@ public class CerebookUserController
     @Override
     protected void postProcessElementForUpdateGet(CerebookUser cerebookUser) {
         cerebookUser.setPassword(null);
+    }
+
+    @Override
+    protected Class<CerebookUser> getElementClass() {
+        return CerebookUser.class;
     }
 }
