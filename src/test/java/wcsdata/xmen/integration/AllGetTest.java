@@ -61,7 +61,10 @@ public class AllGetTest {
                 testGetEndpoint(p.getSecond());
             } catch (Exception e) {
                 addFailure();
-                e.printStackTrace();
+                System.out.println("**************");
+                System.out.println("End point : " + p.getSecond() + " failed !");
+                System.out.println("**************");
+                // e.printStackTrace();
             }
         });
 
