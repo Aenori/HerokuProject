@@ -1,5 +1,6 @@
 package wcsdata.xmen.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class CerebookUser implements Comparable<CerebookUser> {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="cerebook_user_friends")
+    @JsonIgnore
     private final Set<CerebookUser> friends = new TreeSet<>();
 
     @JsonManagedReference
