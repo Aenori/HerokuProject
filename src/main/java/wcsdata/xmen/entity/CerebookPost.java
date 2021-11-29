@@ -1,5 +1,8 @@
 package wcsdata.xmen.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +13,7 @@ public class CerebookPost {
 
     private String content;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     private CerebookUser author;
 

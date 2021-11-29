@@ -8,11 +8,19 @@
 <body>
 <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
 </header>
+<!-- <div class="bg-image"
+     style="background-image: url('https://aenori.s3.eu-west-3.amazonaws.com/x-men_dark_phoenix_easter_eggs.webp');
+            height: 100vh">-->
+
+<div class="text-center">
+    <img class="rounded" src="https://aenori.s3.eu-west-3.amazonaws.com/xmen_banner_bigger.jpg" width="500">
+</div>
 <div class="container">
 <h2>All xmen</h2>
     <table class="table">
         <thead class="thead-dark">
         <tr>
+            <th scope="col">Id</th>
             <th scope="col">Username</th>
             <th scope="col">Human name</th>
             <th scope="col">Name</th>
@@ -22,6 +30,7 @@
         </thead>
         <th:block th:each="cerebookUser : ${allElements}">
             <tr>
+                <td th:text="${cerebookUser.id}"></td>
                 <td th:text="${cerebookUser.username}"></td>
                 <td th:text="${cerebookUser.humanName}"></td>
                 <td th:text="${cerebookUser.name}"></td>
@@ -60,5 +69,6 @@
         <button type="submit" name="Create" value="Create" class="btn-link">Test</button>
     </form>
 </div>
+<!-- </div> -->
 </body>
 </html>

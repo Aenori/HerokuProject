@@ -1,5 +1,7 @@
 package wcsdata.xmen.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,6 +25,7 @@ public class CerebookUser implements Comparable<CerebookUser> {
     @JoinTable(name="cerebook_user_friends")
     private final Set<CerebookUser> friends = new TreeSet<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private final Set<CerebookPost> posts = new HashSet<>();
 

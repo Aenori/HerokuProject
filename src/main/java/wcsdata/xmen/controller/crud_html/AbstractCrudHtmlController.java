@@ -1,5 +1,6 @@
 package wcsdata.xmen.controller.crud_html;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -36,7 +37,7 @@ public abstract class AbstractCrudHtmlController<E, EK> extends AbstractCrudCont
 
     @GetMapping("rest")
     public String getAllWithRest(Model model) {
-        model.addAttribute("allElements", getRepository().findAll());
+        model.addAttribute("allElements", new ObjectMapper().valueToTree(getRepository().findAll()));
         addCommonModel(model);
 
         return getControllerRoute() + "/getAllWithRest";
