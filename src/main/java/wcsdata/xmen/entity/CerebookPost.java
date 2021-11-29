@@ -1,11 +1,16 @@
 package wcsdata.xmen.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class CerebookPost {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -13,7 +18,6 @@ public class CerebookPost {
 
     private String content;
 
-    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     private CerebookUser author;
 

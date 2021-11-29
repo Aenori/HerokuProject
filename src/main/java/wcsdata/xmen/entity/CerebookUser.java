@@ -1,7 +1,9 @@
 package wcsdata.xmen.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -10,6 +12,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class CerebookUser implements Comparable<CerebookUser> {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -27,7 +32,6 @@ public class CerebookUser implements Comparable<CerebookUser> {
     @JsonIgnore
     private final Set<CerebookUser> friends = new TreeSet<>();
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private final Set<CerebookPost> posts = new HashSet<>();
 
