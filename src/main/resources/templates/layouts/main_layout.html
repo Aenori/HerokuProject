@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -8,42 +9,7 @@
 <body>
 <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
 </header>
-<div class="container">
-<h2>All xmen</h2>
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Content</th>
-            <th scope="col">Author name</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <th:block th:each="cerebookPost : ${allElements}">
-            <tr>
-                <td th:text="${cerebookPost.content}"></td>
-                <td th:text="${cerebookPost.author?.name}"></td>
-                <td><a th:href="@{'/posts/'+ ${cerebookPost.id} + '/update'}">Update</a></td>
-                <td>
-                <form th:action="@{'/posts/{cerebook_post_id}/delete'(cerebook_post_id=${cerebookPost.id})}" method="POST">
-                    <button type="submit" name="Delete" value="Delete" class="btn-link">Delete</button>
-                </form>
-                </td>
-            </tr>
-        </th:block>
-    </table>
-</div>
-<div class="container">
-<h2>Create</h2>
-    <form th:action="@{'/posts'}" method="POST">
-        <th:block th:each="field : ${elementFields}">
-            <label th:for="${field}" th:text="${#strings.capitalize(field)}"></label>
-            <input th:id="${field}" th:name="${field}" th:placeholder="${field}">
-            <br>
-        </th:block>
-        <button type="submit" name="Create" value="Create" class="btn-link">Create</button>
-    </form>
-
+<div layout:fragment="content">
 </div>
 </body>
 </html>

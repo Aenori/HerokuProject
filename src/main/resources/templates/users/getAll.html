@@ -16,9 +16,6 @@
 <div class="text-center">
     <img class="rounded" src="https://aenori.s3.eu-west-3.amazonaws.com/xmen_banner_bigger.jpg" width="500">
 </div>
-<div class="text-center">
-    <div id="container"></div>
-</div>
 <div class="container">
 <h2>All xmen</h2>
     <table class="table">
@@ -73,98 +70,6 @@
         <button type="submit" name="Create" value="Create" class="btn-link">Test</button>
     </form>
 </div>
-<script type="module">
-    import * as THREE from 'https://threejs.org/build/three.module.js';
-
-    import Stats from 'https://threejs.org/examples/jsm/libs/stats.module.js';
-
-    import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
-    import { RoomEnvironment } from 'https://threejs.org/examples/jsm/environments/RoomEnvironment.js';
-
-    import { GLTFLoader } from 'https://threejs.org/examples/jsm/loaders/GLTFLoader.js';
-    import { DRACOLoader } from 'https://threejs.org/examples/jsm/loaders/DRACOLoader.js';
-
-    let mixer;
-
-    const clock = new THREE.Clock();
-    const container = document.getElementById( 'container' );
-
-    const stats = new Stats();
-    container.appendChild( stats.dom );
-
-    const renderer = new THREE.WebGLRenderer( { antialias: true } );
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    container.appendChild( renderer.domElement );
-
-    const pmremGenerator = new THREE.PMREMGenerator( renderer );
-
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0xbfe3dd );
-    scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
-
-    const camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100 );
-    camera.position.set( 5, 2, 8 );
-
-    const controls = new OrbitControls( camera, renderer.domElement );
-    controls.target.set( 0, 0.5, 0 );
-    controls.update();
-    controls.enablePan = false;
-    controls.enableDamping = true;
-
-    const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath( 'https://threejs.org/examples/js/libs/draco/gltf/' );
-
-    const loader = new GLTFLoader();
-    loader.setDRACOLoader( dracoLoader );
-    loader.load( 'https://threejs.org/examples/models/gltf/LittlestTokyo.glb', function ( gltf ) {
-
-        const model = gltf.scene;
-        model.position.set( 1, 1, 0 );
-        model.scale.set( 0.01, 0.01, 0.01 );
-        scene.add( model );
-
-        mixer = new THREE.AnimationMixer( model );
-        mixer.clipAction( gltf.animations[ 0 ] ).play();
-
-        animate();
-
-    }, undefined, function ( e ) {
-
-        console.error( e );
-
-    } );
-
-
-    window.onresize = function () {
-
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-
-        renderer.setSize( window.innerWidth, window.innerHeight );
-
-    };
-
-
-    function animate() {
-
-        requestAnimationFrame( animate );
-
-        const delta = clock.getDelta();
-
-        mixer.update( delta );
-
-        controls.update();
-
-        stats.update();
-
-        renderer.render( scene, camera );
-
-    }
-
-
-</script>
 <!-- </div> -->
 </body>
 </html>

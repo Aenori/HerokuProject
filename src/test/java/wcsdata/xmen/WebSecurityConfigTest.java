@@ -1,9 +1,7 @@
 package wcsdata.xmen;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-
-import static org.junit.jupiter.api.Assertions.*;
+import wcsdata.xmen.config.WebSecurityConfig;
 
 class WebSecurityConfigTest {
     WebSecurityConfig webSecurityConfig = new WebSecurityConfig();
