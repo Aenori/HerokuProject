@@ -22,7 +22,7 @@ class LocalHostingService implements IHostingService {
     @Value("${local.storage.sub_path}")
     private String subPath;
 
-    @Value("${local.storage.sub_path}/${local.storage.main_path}")
+    @Value("${local.storage.main_path}/${local.storage.sub_path}")
     private String rootPath;
 
     @Override

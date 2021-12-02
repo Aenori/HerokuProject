@@ -15,7 +15,6 @@ import org.thymeleaf.spring5.dialect.SpringStandardDialect;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
-@EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
