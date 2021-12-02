@@ -14,6 +14,7 @@ import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
 import org.springframework.web.servlet.support.RequestContext;
 import wcsdata.xmen.controller.AbstractCrudController;
+import wcsdata.xmen.entity.CerebookPost;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.model.UserDetailsWrapper;
 import wcsdata.xmen.repository.CerebookUserRepository;
@@ -21,6 +22,7 @@ import wcsdata.xmen.repository.CerebookUserRepository;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.security.Principal;
+import java.util.List;
 
 import static org.springframework.web.servlet.function.RequestPredicates.accept;
 import static org.springframework.web.servlet.function.RouterFunctions.route;

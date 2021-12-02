@@ -3,3 +3,4 @@ target
 *.class
 twitter4j.properties
 src/main/resources/public/css/
+/docker.env
