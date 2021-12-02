@@ -23,15 +23,23 @@ public class HostingService {
         return hostingService;
     }
 
-    public Object buildMediaList(List<CerebookMedia> all) {
-        return null;
-    }
-
     public void uploadPictureImage(String objectKey, InputStream inputStream, Long size) {
         getHostingService().uploadPictureImage(objectKey, inputStream, size);
     }
 
     public List<String> listObjects() {
         return getHostingService().listObjects();
+    }
+
+    public void deleteObject(String key) {
+        getHostingService().deleteObject(key);
+    }
+
+    public String getUrlPrefix() {
+        return getHostingService().getUrlPrefix();
+    }
+
+    public boolean isAmazon() {
+        return getHostingService().isAmazon();
     }
 }

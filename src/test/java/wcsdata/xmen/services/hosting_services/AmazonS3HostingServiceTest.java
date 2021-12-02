@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest()
 @ActiveProfiles("test")
-class AmazonS3HostingServiceTest extends AbstractHostingTest {
+class AmazonS3HostingServiceTest {
     @Autowired
     AmazonS3HostingService amazonS3HostingService; // = new AmazonS3HostingService();
 
@@ -27,7 +27,8 @@ class AmazonS3HostingServiceTest extends AbstractHostingTest {
         // Don't run the test if S3 is not set
         Assumptions.assumeTrue(!s3_access_key.isEmpty(), "S3 env variables are not set");
 
-        assertEquals("eu-west-3", amazonS3HostingService.getAmazonS3().getRegionName());
-        genericTest(amazonS3HostingService);
+        assertEquals("https://wcs-2-be-or-not-2-be.s3.eu-west-3.amazonaws.com/", amazonS3HostingService.getUrlPrefix());
+
+        AbstractHostingTest.genericTest(amazonS3HostingService);
     }
 }

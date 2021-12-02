@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wcsdata.xmen.entity.CerebookMedia;
 import wcsdata.xmen.repository.CerebookMediaRepository;
 import wcsdata.xmen.services.HostingService;
+import wcsdata.xmen.services.MediaService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -17,14 +18,11 @@ import java.io.IOException;
 @RequestMapping("media")
 public class MediaController {
     @Autowired
-    private CerebookMediaRepository cerebookMediaRepository;
+    private MediaService mediaService;
 
-    @Autowired
-    private HostingService hostingService;
-
-    // @GetMapping("")
+    @GetMapping("")
     public String getAll(Model model) {
-        model.addAttribute("allElements", hostingService.buildMediaList(cerebookMediaRepository.findAll()));
+        model.addAttribute("allElements", mediaService.getMediaList());
         model.addAttribute("categories", CerebookMedia.Type.class.getEnumConstants());
 
         return "media/getAll";
@@ -39,14 +37,10 @@ public class MediaController {
         String filename = file.getOriginalFilename();
 
         try {
-            hostingService.uploadPictureImage(
+            mediaService.uploadMedia(
                     filename,
                     file.getInputStream(),
                     file.getSize()
-            );
-
-            cerebookMediaRepository.save(
-                    new CerebookMedia(filename, type)
             );
         }
         catch(IOException e) {

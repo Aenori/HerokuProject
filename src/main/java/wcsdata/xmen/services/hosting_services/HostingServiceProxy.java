@@ -1,5 +1,6 @@
 package wcsdata.xmen.services.hosting_services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,12 @@ public class HostingServiceProxy {
 
     @Value("${spring.profiles.active}")
     private String activeProfile;
+
+    @Autowired
+    private AmazonS3HostingService amazonS3HostingService;
+
+    @Autowired
+    private LocalHostingService localHostingService;
 
     private IHostingService hostingService;
 
@@ -22,10 +29,10 @@ public class HostingServiceProxy {
 
     private void initHostingService() {
         if(force_s3_hosting || activeProfile.equals("prod")) {
-            hostingService = new AmazonS3HostingService();
+            hostingService = amazonS3HostingService;
         }
         else {
-            hostingService = new LocalHostingService();
+            hostingService = localHostingService;
         }
     }
 }

@@ -8,14 +8,10 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import wcsdata.xmen.entity.CerebookMedia;
-import wcsdata.xmen.model.HostedMedia;
-import wcsdata.xmen.model.SimpleHostedMedia;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -37,12 +33,10 @@ class AmazonS3HostingService implements IHostingService {
     private String urlPrefix;
 
     private AmazonS3 amazonS3;
-
-    private Map<CerebookMedia.Type, Function<CerebookMedia, HostedMedia>> mediaConstructorMap;
     // </editor-fold>
 
     // <editor-fold desc="Public methods">
-    public AmazonS3 getAmazonS3() {
+    private AmazonS3 getAmazonS3() {
         if(amazonS3 == null) {
             initAmazonS3Client();
         }
@@ -57,13 +51,6 @@ class AmazonS3HostingService implements IHostingService {
                         .withCannedAcl(CannedAccessControlList.PublicRead));
     }
 
-    public List<HostedMedia> buildMedia(List<CerebookMedia> cerebookMediaList) {
-        return cerebookMediaList
-                .stream()
-                .map(cm -> getMediaConstructorMap().get(cm.getMediaType()).apply(cm))
-                .collect(Collectors.toList());
-    }
-
     public List<String> listObjects() {
         return getAmazonS3()
                 .listObjects(bucketName)
@@ -75,6 +62,15 @@ class AmazonS3HostingService implements IHostingService {
 
     public void deleteObject(String key) {
         getAmazonS3().deleteObject(new DeleteObjectRequest(bucketName, key));
+    }
+
+    public String getUrlPrefix() {
+        return urlPrefix;
+    }
+
+    @Override
+    public boolean isAmazon() {
+        return true;
     }
     // </editor-fold>
 
@@ -92,25 +88,6 @@ class AmazonS3HostingService implements IHostingService {
                 .build();
     }
 
-    private Map<CerebookMedia.Type, Function<CerebookMedia, HostedMedia>> getMediaConstructorMap() {
-        if(mediaConstructorMap == null) {
-            mediaConstructorMap = new HashMap<>();
-            mediaConstructorMap.put(
-                    CerebookMedia.Type.SimpleMedia,
-                    cm -> new SimpleHostedMedia(urlPrefix + cm.getObjectKey())
-            );
-        }
-        return mediaConstructorMap;
-    }
 
-    @Override
-    public String toString() {
-        return "AmazonS3HostingService{" +
-                "accessKey='" + accessKey + '\'' +
-                ", accessSecret='" + accessSecret + '\'' +
-                ", bucketName='" + bucketName + '\'' +
-                ", urlPrefix='" + urlPrefix + '\'' +
-                '}';
-    }
     // </editor-fold>
 }

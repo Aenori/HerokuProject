@@ -1,18 +1,25 @@
 package wcsdata.xmen.model;
 
-public class SimpleHostedMedia implements HostedMedia {
-    private final String url;
+import wcsdata.xmen.entity.CerebookMedia;
 
-    @Override
-    public String getMainPicture() {
-        return url;
-    }
+public class SimpleHostedMedia {
+    private final String urlPrefix;
+    private final CerebookMedia cerebookMedia;
 
-    public SimpleHostedMedia(String url) {
-        this.url = url;
+    public SimpleHostedMedia(String urlPrefix, CerebookMedia cerebookMedia) {
+        this.urlPrefix = urlPrefix;
+        this.cerebookMedia = cerebookMedia;
     }
 
     public String getUrl() {
-        return url;
+        return urlPrefix + "/" + cerebookMedia.getObjectKey();
+    }
+
+    public String getUrlPrefix() {
+        return urlPrefix;
+    }
+
+    public CerebookMedia getCerebookMedia() {
+        return cerebookMedia;
     }
 }
