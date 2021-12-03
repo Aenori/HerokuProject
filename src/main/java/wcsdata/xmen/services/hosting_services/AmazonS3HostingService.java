@@ -29,7 +29,7 @@ class AmazonS3HostingService implements IHostingService {
     @Value("${amazon.aws.s3.bucket}")
     private String bucketName;
 
-    @Value("https://${amazon.aws.s3.bucket}.s3.${amazon.aws.s3.region}.amazonaws.com/")
+    @Value("https://${amazon.aws.s3.bucket}.s3.${amazon.aws.s3.region}.amazonaws.com")
     private String urlPrefix;
 
     private AmazonS3 amazonS3;
