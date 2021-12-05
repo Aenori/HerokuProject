@@ -1,8 +1,6 @@
 package wcsdata.xmen.services.hosting_services;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.sql.SQLOutput;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +11,7 @@ public class AbstractHostingTest {
         try (InputStream inputStream = new FileInputStream(
                 testFile
         )) {
-            iHostingService.uploadPictureImage(
+            iHostingService.uploadFile(
                     "image_for_test.png",
                     inputStream,
                     testFile.length()

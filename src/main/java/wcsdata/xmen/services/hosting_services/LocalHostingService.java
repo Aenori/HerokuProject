@@ -26,7 +26,7 @@ class LocalHostingService implements IHostingService {
     private String rootPath;
 
     @Override
-    public void uploadPictureImage(String objectKey, InputStream inputStream, Long size) {
+    public void uploadFile(String objectKey, InputStream inputStream, Long size) {
         Path fullPath = getPath(objectKey);
         try {
             Files.createDirectories(fullPath);

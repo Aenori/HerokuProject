@@ -2,13 +2,15 @@ package wcsdata.xmen.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wcsdata.xmen.entity.CerebookMedia;
 import wcsdata.xmen.services.hosting_services.HostingServiceProxy;
 import wcsdata.xmen.services.hosting_services.IHostingService;
 
 import java.io.InputStream;
 import java.util.List;
 
+/* NRO 2021-12-03 : This class only deals with the physical hosting
+     of the file
+ */
 @Service
 public class HostingService {
     @Autowired
@@ -23,8 +25,8 @@ public class HostingService {
         return hostingService;
     }
 
-    public void uploadPictureImage(String objectKey, InputStream inputStream, Long size) {
-        getHostingService().uploadPictureImage(objectKey, inputStream, size);
+    public void uploadFile(String objectKey, InputStream inputStream, Long size) {
+        getHostingService().uploadFile(objectKey, inputStream, size);
     }
 
     public List<String> listObjects() {

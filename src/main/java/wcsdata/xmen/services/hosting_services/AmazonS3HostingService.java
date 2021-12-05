@@ -43,7 +43,7 @@ class AmazonS3HostingService implements IHostingService {
         return amazonS3;
     }
 
-    public void uploadPictureImage(String objectKey, InputStream inputStream, Long size) {
+    public void uploadFile(String objectKey, InputStream inputStream, Long size) {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(size);
         getAmazonS3().putObject(

@@ -19,7 +19,7 @@ public class MediaService {
     HostingService hostingService;
 
     public void uploadMedia(String filename, InputStream inputStream, long size) {
-        hostingService.uploadPictureImage(filename, inputStream, size);
+        hostingService.uploadFile(filename, inputStream, size);
 
         cerebookMediaRepository.save(
                 new CerebookMedia(
