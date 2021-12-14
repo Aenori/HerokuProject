@@ -1,18 +1,21 @@
 <h2>List of Users</h2>
-<ul class="heroes">
+<ul class="users">
   <li *ngFor="let user of users"
       [class.selected]="user === selectedUser"
       (click)="onSelect(user)">
     <span class="badge">{{user.id}}</span> {{user.name}}
   </li>
 </ul>
-
+<p>{{msg}}</p>
 <div *ngIf="selectedUser">
   <h2>{{selectedUser.name | uppercase}} Details</h2>
+  <form #userUpdate = "ngForm" (ngSubmit) = "onClickSubmit(userUpdate.value)" >
   <div><span>id: </span>{{selectedUser.id}}</div>
-  <div>
-    <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="selectedUser.name" placeholder="name">
+  <input hidden name="id" [(ngModel)]="selectedUser.id"/>
+  <div *ngFor="let field of ['username', 'name', 'password', 'humanName', ]">
+    <label for="user-{{field}}">User {{field}}: </label>
+    <input id="user-{{field}}name" [(ngModel)]="selectedUser[field]" name="{{field}}" placeholder="{{field}}"/>
   </div>
-
+    <button class="button" type="submit">Update</button>
+  </form>
 </div>

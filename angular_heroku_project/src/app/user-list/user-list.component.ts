@@ -10,6 +10,7 @@ import {User} from "../model/user";
 export class UserListComponent implements OnInit {
   users: User[] = [];
   selectedUser?: User;
+  msg: string = "";
 
   constructor(private userService: UserService) { }
 
@@ -24,5 +25,10 @@ export class UserListComponent implements OnInit {
 
   onSelect(user: User): void {
     this.selectedUser = user;
+  }
+
+  onClickSubmit(data: any): void {
+    this.userService.saveUser(data)
+      .subscribe(user => this.msg = `User ${user.username} updated with success`);
   }
 }

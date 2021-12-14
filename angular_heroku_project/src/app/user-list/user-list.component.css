@@ -1,11 +1,11 @@
 /* HeroesComponent's private CSS styles */
-.heroes {
+.users {
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
   width: 15em;
 }
-.heroes li {
+.users li {
   cursor: pointer;
   position: relative;
   left: 0;
@@ -20,19 +20,19 @@
   background-color: #e6e6e6;
   left: .1em;
 }
-.heroes li.selected {
+.users li.selected {
   background-color: black;
   color: white;
 }
-.heroes li.selected:hover {
+.users li.selected:hover {
   background-color: #505050;
   color: white;
 }
-.heroes li.selected:active {
+.users li.selected:active {
   background-color: black;
   color: white;
 }
-.heroes .badge {
+.users .badge {
   display: inline-block;
   font-size: small;
   color: white;

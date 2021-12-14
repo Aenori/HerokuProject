@@ -3,16 +3,16 @@ package wcsdata.xmen.controller.crud_rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import wcsdata.xmen.controller.crud_html.AbstractCrudHtmlIntegerController;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.repository.CerebookUserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200", "http://web_ng:4200"})
 @RequestMapping("/api/users")
 public class CerebookUserRestController
         extends AbstractCrudRestIntegerController<CerebookUser> {
@@ -36,7 +36,8 @@ public class CerebookUserRestController
 
     @Override
     protected void preProcessElement(CerebookUser cerebookUser, HttpServletRequest _hsr) {
-        if(cerebookUser.getPassword().isEmpty()) {
+        String password = cerebookUser.getPassword();
+        if(password == null || password.isEmpty()) {
             cerebookUser.setPassword(
                     cerebookUserRepository.getById(cerebookUser.getId())
                             .getPassword());

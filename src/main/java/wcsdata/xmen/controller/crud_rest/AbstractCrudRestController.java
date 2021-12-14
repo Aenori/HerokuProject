@@ -8,12 +8,14 @@ import wcsdata.xmen.controller.AbstractCrudController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://web_ng:4200"})
 public abstract class AbstractCrudRestController<E, EK> extends AbstractCrudController<E, EK> {
 
     @GetMapping("")
-    public List<E> getAll() {
-        return getRepository().findAll();
+    public List<E> getAll(HttpServletRequest hsr) {
+        List<E> allElements = getRepository()
+                .findAll();
+        allElements.forEach(e -> postProcessElementForUpdateGet(e));
+        return allElements;
     }
 
     @GetMapping("/{id}")
@@ -32,11 +34,11 @@ public abstract class AbstractCrudRestController<E, EK> extends AbstractCrudCont
         return getRepository().save(e);
     }
 
-    @PutMapping("/{id}")
-    @PatchMapping("/{id}")
+    @PutMapping(value ="/{id}", consumes = "application/json")
+    @PatchMapping(value = "/{id}", consumes = "application/json")
     public E updateOne(
             @PathVariable("id") String id,
-            @ModelAttribute E e,
+            @RequestBody E e,
             HttpServletRequest hsr
             ) {
         preProcessElement(e, hsr);

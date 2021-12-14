@@ -14,4 +14,15 @@ export class UserService {
   getHeroes(): Observable<User[]> {
     return this.http.get<User[]>(this.userUrl);
   }
+
+  saveUser(data: any): Observable<User> {
+    console.log("===========");
+    console.log(data);
+    console.log("===========");
+
+    if(data.id) {
+      return this.http.put<User>(`${(this.userUrl)}/${data.id}`, data);
+    }
+    return this.http.post<User>(this.userUrl, data);
+  }
 }
