@@ -32,22 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // http.authorizeRequests().antMatchers("/**").permitAll();
         http.authorizeRequests()
-                .antMatchers("/", "/home", "/error", "/users/**", "/images/**", "/webjars/**")
-                .permitAll()
-                .antMatchers("/admin**")
-                .hasAuthority("ROLE_admin")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .permitAll()
-                .and()
-                .logout()
+                .anyRequest()
                 .permitAll();
-        // http.authorizeRequests().antMatchers("*").permitAll().and().formLogin();
     }
 
-    @Override
+    /* @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
+    }*/
 }

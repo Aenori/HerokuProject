@@ -2,5 +2,9 @@ target
 .idea
 *.class
 twitter4j.properties
-src/main/resources/public/css/
-/docker.env
+
+src/main/resources/public/css
+src/main/resources/public/uploads
+
+docker.env
+.env_with_aws

@@ -1,6 +1,20 @@
-version: '3'
+version: '3.3'
 services:
+  web_ng:
+    image: heroku_project_web_ng
+    build:
+       context: . 
+       dockerfile: Dockerfile_ng
+    ports:
+      - "4200:4200"
+    depends_on:
+      - web
+      - db
+    volumes:
+      - ./angular_heroku_project:/app
+  
   web:
+    image: heroku_project_web
     build: .
     ports:
       - "8081:8080"

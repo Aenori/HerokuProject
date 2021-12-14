@@ -8,6 +8,7 @@ import wcsdata.xmen.controller.AbstractCrudController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:4200", "http://web_ng:4200"})
 public abstract class AbstractCrudRestController<E, EK> extends AbstractCrudController<E, EK> {
 
     @GetMapping("")

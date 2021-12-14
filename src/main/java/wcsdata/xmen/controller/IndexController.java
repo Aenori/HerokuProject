@@ -34,7 +34,7 @@ public class IndexController {
 
     @RequestMapping("/")
     String index() {
-        return "index";
+        return "angular-heroku-project/index";
     }
 
     @RequestMapping("/db")
