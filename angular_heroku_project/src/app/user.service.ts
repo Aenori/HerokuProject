@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class UserService {
-  userUrl = "http://localhost:8081/api/users"
+  userUrl = "http://localhost:8081/api/users";
 
   constructor(private http: HttpClient) { }
 
@@ -16,13 +16,13 @@ export class UserService {
   }
 
   saveUser(data: any): Observable<User> {
-    console.log("===========");
-    console.log(data);
-    console.log("===========");
-
     if(data.id) {
       return this.http.put<User>(`${(this.userUrl)}/${data.id}`, data);
     }
     return this.http.post<User>(this.userUrl, data);
+  }
+
+  deleteUser(id: number): Observable<Object> {
+    return this.http.delete(`${(this.userUrl)}/${id}`);
   }
 }

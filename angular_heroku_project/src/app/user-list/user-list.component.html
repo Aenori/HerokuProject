@@ -14,8 +14,12 @@
   <input hidden name="id" [(ngModel)]="selectedUser.id"/>
   <div *ngFor="let field of ['username', 'name', 'password', 'humanName', ]">
     <label for="user-{{field}}">User {{field}}: </label>
-    <input id="user-{{field}}name" [(ngModel)]="selectedUser[field]" name="{{field}}" placeholder="{{field}}"/>
+    <input id="user-{{field}}" [(ngModel)]="selectedUser[field]" name="{{field}}" placeholder="{{field}}"/>
   </div>
     <button class="button" type="submit">Update</button>
+  </form>
+  <form #userDelete = "ngForm" (ngSubmit) = "onClickSubmitDelete(userDelete.value.id)">
+    <input hidden name="id" [(ngModel)]="selectedUser.id"/>
+    <button class="button" type="submit">Delete</button>
   </form>
 </div>

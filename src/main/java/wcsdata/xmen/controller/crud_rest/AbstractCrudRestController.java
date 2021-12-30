@@ -48,9 +48,7 @@ public abstract class AbstractCrudRestController<E, EK> extends AbstractCrudCont
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable("id") String id) {
         try {
-            getRepository().deleteById(
-                    parseId(id)
-            );
+            getRepository().deleteById(parseId(id));
         }
         catch (org.springframework.dao.EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, getNotFoundMessage(id));
