@@ -2,7 +2,6 @@ package wcsdata.xmen.services.hosting_services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import wcsdata.xmen.entity.CerebookMedia;
 
 import java.io.File;
 import java.io.IOException;

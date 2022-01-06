@@ -13,7 +13,7 @@ VALUES(4, 'Clark Kent', 'Superman', '$2a$11$Azmy0ET550TMI/ym0le0Rex0Oof3hQ./A8EC
 
 INSERT INTO cerebook_user_friends VALUES(1, 2), (3, 2);
 
-INSERT INTO cerebook_message(id, content, author_id) VALUES(1, 'Hello world', 1);
+INSERT INTO message(id, content, author_id) VALUES(1, 'Hello world', 1);
 
 SELECT nextval('hibernate_sequence');
 

@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Entity
-public class CerebookMessage {
+public class Message {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

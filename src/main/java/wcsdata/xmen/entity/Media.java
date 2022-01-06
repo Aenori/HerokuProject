@@ -1,12 +1,10 @@
 package wcsdata.xmen.entity;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import javax.persistence.*;
 
 @Entity
-public class CerebookMedia {
-    public static enum Type {
+public class Media {
+    public enum Type {
         SimpleMedia,
         ResizedPicture
     }
@@ -17,21 +15,31 @@ public class CerebookMedia {
     private Integer id;
     private String objectKey;
     private Type mediaType;
+
+    public boolean isAmazonS3Hosted() {
+        return amazonS3Hosted;
+    }
+
+    public void setAmazonS3Hosted(boolean amazonS3Hosted) {
+        this.amazonS3Hosted = amazonS3Hosted;
+    }
+
     private boolean amazonS3Hosted;
     // </editor-fold>
 
     // <editor-fold desc="Constructor">
-    public CerebookMedia() {}
-    public CerebookMedia(String objectKey, Type mediaType) {
+    public Media() {}
+    public Media(String objectKey, Type mediaType) {
         this.mediaType = mediaType;
         this.objectKey = objectKey;
     }
-    public CerebookMedia(String objectKey, String mediaType) {
+    public Media(String objectKey, String mediaType) {
         this(objectKey, Type.valueOf(mediaType));
     }
-    public CerebookMedia(String objectKey, Type mediaType, boolean amazonS3Hosted) {
+    public Media(String objectKey, Type mediaType, boolean amazonS3Hosted) {
         this.mediaType = mediaType;
         this.objectKey = objectKey;
+        this.amazonS3Hosted =amazonS3Hosted;
     }
     // </editor-fold>
 

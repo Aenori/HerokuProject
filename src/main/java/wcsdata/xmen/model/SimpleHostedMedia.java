@@ -1,12 +1,12 @@
 package wcsdata.xmen.model;
 
-import wcsdata.xmen.entity.CerebookMedia;
+import wcsdata.xmen.entity.Media;
 
 public class SimpleHostedMedia {
     private final String urlPrefix;
-    private final CerebookMedia cerebookMedia;
+    private final Media cerebookMedia;
 
-    public SimpleHostedMedia(String urlPrefix, CerebookMedia cerebookMedia) {
+    public SimpleHostedMedia(String urlPrefix, Media cerebookMedia) {
         this.urlPrefix = urlPrefix;
         this.cerebookMedia = cerebookMedia;
     }
@@ -19,7 +19,7 @@ public class SimpleHostedMedia {
         return urlPrefix;
     }
 
-    public CerebookMedia getCerebookMedia() {
+    public Media getCerebookMedia() {
         return cerebookMedia;
     }
 }

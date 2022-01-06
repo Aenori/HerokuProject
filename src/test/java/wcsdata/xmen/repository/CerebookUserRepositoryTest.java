@@ -7,7 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import wcsdata.xmen.entity.CerebookUser;
 import wcsdata.xmen.entity.CerebookUserFriends;
-import wcsdata.xmen.entity.CerebookPost;
+import wcsdata.xmen.entity.Post;
 import wcsdata.xmen.entity.ids.CerebookUserFriendsId;
 
 import java.util.Optional;
@@ -26,7 +26,7 @@ class CerebookUserRepositoryTest {
     private CerebookUserFriendsRepository cerebookUserFriendsRepository;
 
     @Autowired
-    private CerebookPostRepository postRepository;
+    private PostRepository postRepository;
 
     @Test
     public void findByName() {
@@ -55,7 +55,7 @@ class CerebookUserRepositoryTest {
         assertThat(superman).isNotNull();
 
         long postCount = postRepository.count();
-        CerebookPost post = superman.createPost();
+        Post post = superman.createPost();
         post.setContent("Hello world !");
         cerebookUserRepository.save(superman);
 

@@ -2,7 +2,6 @@ package wcsdata.xmen.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -33,7 +32,7 @@ public class CerebookUser implements Comparable<CerebookUser> {
     private final Set<CerebookUser> friends = new TreeSet<>();
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private final Set<CerebookPost> posts = new HashSet<>();
+    private final Set<Post> posts = new HashSet<>();
 
     // <editor-fold desc="constructors region">
     public CerebookUser() {}
@@ -96,7 +95,7 @@ public class CerebookUser implements Comparable<CerebookUser> {
         return friends;
     }
 
-    public Set<CerebookPost> getPosts() {
+    public Set<Post> getPosts() {
         return posts;
     }
     // </editor-fold>
@@ -135,8 +134,8 @@ public class CerebookUser implements Comparable<CerebookUser> {
                 '}';
     }
 
-    public CerebookPost createPost() {
-        CerebookPost post = new CerebookPost();
+    public Post createPost() {
+        Post post = new Post();
         post.setAuthor(this);
         posts.add(post);
 

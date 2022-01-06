@@ -2,9 +2,9 @@ package wcsdata.xmen.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wcsdata.xmen.entity.CerebookMedia;
+import wcsdata.xmen.entity.Media;
 import wcsdata.xmen.model.SimpleHostedMedia;
-import wcsdata.xmen.repository.CerebookMediaRepository;
+import wcsdata.xmen.repository.MediaRepository;
 
 import java.io.InputStream;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class MediaService {
     @Autowired
-    CerebookMediaRepository cerebookMediaRepository;
+    MediaRepository cerebookMediaRepository;
 
     @Autowired
     HostingService hostingService;
@@ -22,9 +22,9 @@ public class MediaService {
         hostingService.uploadFile(filename, inputStream, size);
 
         cerebookMediaRepository.save(
-                new CerebookMedia(
+                new Media(
                     filename,
-                    CerebookMedia.Type.SimpleMedia,
+                    Media.Type.SimpleMedia,
                     hostingService.isAmazon()
                 )
         );

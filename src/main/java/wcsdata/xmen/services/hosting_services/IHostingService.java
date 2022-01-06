@@ -1,7 +1,5 @@
 package wcsdata.xmen.services.hosting_services;
 
-import wcsdata.xmen.entity.CerebookMedia;
-
 import java.io.InputStream;
 import java.util.List;
 
