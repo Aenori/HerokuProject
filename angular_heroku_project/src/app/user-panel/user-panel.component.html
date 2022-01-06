@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <app-user-list (selectedUserEvent)="selectUser($event)"></app-user-list>
+    </div>
+    <div class="col-sm">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <app-user-card [selectedUser]="selectedUser"></app-user-card>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <app-user-form></app-user-form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

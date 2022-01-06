@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {UserService} from "../../user.service";
 import {User} from "../../model/user";
 
@@ -10,6 +10,7 @@ import {User} from "../../model/user";
 export class UserListComponent implements OnInit {
   users: User[] = [];
   selectedUser?: User;
+  @Output() selectedUserEvent = new EventEmitter<User>();
   msg: string = "";
 
   constructor(private userService: UserService) { }
@@ -25,6 +26,7 @@ export class UserListComponent implements OnInit {
 
   onSelect(user: User): void {
     this.selectedUser = user;
+    this.selectedUserEvent.emit(user);
   }
 
   onClickSubmit(data: any): void {
