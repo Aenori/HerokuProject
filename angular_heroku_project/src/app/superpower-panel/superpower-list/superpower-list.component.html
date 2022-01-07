@@ -1,0 +1,8 @@
+<h4>List of Superpowers</h4>
+<ul class="cbitem">
+  <li *ngFor="let superpower of superpowers"
+      [class.selected]="superpower === selectedsuperpower"
+      (click)="onSelect(superpower)">
+    <span class="badge">{{superpower.id}}</span> {{superpower.name}}
+  </li>
+</ul>

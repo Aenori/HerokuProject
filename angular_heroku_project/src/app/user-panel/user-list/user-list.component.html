@@ -1,5 +1,5 @@
 <h2>List of Users</h2>
-<ul class="users">
+<ul class="cbitem">
   <li *ngFor="let user of users"
       [class.selected]="user === selectedUser"
       (click)="onSelect(user)">

@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Entity
 @JsonIdentityInfo(
@@ -33,6 +30,9 @@ public class CerebookUser implements Comparable<CerebookUser> {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private final Set<Post> posts = new HashSet<>();
+
+    @ManyToMany
+    private final List<Superpower> superpowers = new ArrayList<>();
 
     // <editor-fold desc="constructors region">
     public CerebookUser() {}
